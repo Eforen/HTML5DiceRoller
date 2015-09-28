@@ -6,14 +6,16 @@
 //chai.use(sinonChai);
 
 import RoleObj from '../RoleObj.js'
+import DieFudge from '../dice/DieFudge.js'
+import DieSided from '../dice/DieSided.js'
+import RoleOperator from '../RoleOperator.js'
+import RoleNumber from '../RoleNumber.js'
 
 describe('RoleObj.js', () => {
   it('Eval String', (done) => {
     done()
   })
 
-/*
-*/
   it('Eval String', (done) => {
     var test = RoleObj.evalStr("1d6-h2-l3r4e5 + 2df - 6")
 
@@ -111,13 +113,13 @@ describe('RoleObj.js', () => {
     expect(test[0].lowest.count).to.equal(1)
     expect(test[0].rerole).to.equal(0)
     expect(test[0].extra).to.equal(0)
-/*
 
-
-*/
     done()
   })
 
+  /* Test inner eval
+
+   */
   it('Eval Inner Function', (done) => {
 
     var arr0 = ["1d6-h2-l3r4e5","1d6-h2-l3r4e5",,,"1","d","6","-h2","-","2","-l3","-","3","r4","4","e5","5",,]
@@ -185,6 +187,53 @@ describe('RoleObj.js', () => {
     
 
     done()
+  })
+
+  it('Die Object Selector', (done) => {
+  	var test = RoleObj.getDie({
+      type: "Sides",
+      count: 1,
+      sides: 6,
+      highest: {
+        enabled: true,
+        op: "-",
+        count: 2
+      },
+      lowest: {
+        enabled: true,
+        op: "-",
+        count: 3
+      },
+      rerole: 4,
+      extra: 5
+    })
+    expect(test).is.an.instanceof(DieSided)
+
+    test = RoleObj.getDie({
+      type: "Operator",
+      op: "+"
+    })
+    expect(test).is.an.instanceof(RoleOperator)
+
+    test = RoleObj.getDie({
+      type: "Fudge",
+      count: 2
+    })
+    expect(test).is.an.instanceof(DieFudge)
+
+    test = RoleObj.getDie({
+      type: "Operator",
+      op: "-"
+    })
+    expect(test).is.an.instanceof(RoleOperator)
+
+    test = RoleObj.getDie({
+      type: "Number",
+      num: 6
+    })
+    expect(test).is.an.instanceof(RoleNumber)
+
+  	done()
   })
 
   /*

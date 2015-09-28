@@ -15,7 +15,11 @@
 // ((\d+)?(d|D)(\d+)([+-]H\d*)?([+-]L\d*)?(R\d*)?(E\d*)?|[\*/+-]|\d+)
 // With Option /GI
 class RoleObj {
-  constructor() {
+  constructor(Role) {
+    
+  }
+
+  static getDie(obj){
     
   }
 
