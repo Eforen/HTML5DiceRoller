@@ -16,21 +16,13 @@
 // With Option /GI
 class RoleObj {
   constructor() {
-    var re = /((\d+)(df))|((\d+)?(d|D)(\d+)((\+H|\-H)(\d*))?((\+L|\-L)(\d*))?(R(\d*))?(E(\d*))?|[\*\/+-]|\d+)/gi; 
-	var str = '1d4 + 4D6+L3 12Df';
-	var m;
-	 
-	while ((m = re.exec(str)) !== null) {
-	    if (m.index === re.lastIndex) {
-	        re.lastIndex++;
-	    }
-	    // View your result using the m-variable.
-	    // eg m[0] etc.
-	}
+    
   }
 
   static evalStr(str){
+  	var re = RoleObj.getPattern()
   	var output = []
+  	var m
 	while ((m = re.exec(str)) !== null) {
 	    if (m.index === re.lastIndex) {
 	        re.lastIndex++;
@@ -44,25 +36,25 @@ class RoleObj {
   	if(arr[3]){ // Fudge Dice Roll
   		return {
   			type: "Fudge",
-  			count: arr[2] ? arr[2] : 1
+  			count: arr[2] ? parseInt(arr[2]) : 1
   		}
   	} else if(arr[5]){ // X Sided Role
   		return {
   			type: "Sides",
-  			count: arr[4] ? arr[4] : 1,
-  			sides: arr[6],
+  			count: arr[4] ? parseInt(arr[4]) : 1,
+  			sides: parseInt(arr[6]),
   			highest: {
-  				enabled: arr[7] ? true : false
+  				enabled: arr[7] ? true : false,
   				op: arr[8],
-  				count: arr[9]
+  				count: arr[9] ? parseInt(arr[9]) : 1
   			},
   			lowest: {
-  				enabled: arr[10] ? true : false
+  				enabled: arr[10] ? true : false,
   				op: arr[11],
-  				count: arr[12]
+  				count: arr[12] ? parseInt(arr[12]) : 1
   			},
-  			rerole: arr[13] ? (arr[14] ? arr[14] : 1) : 0,
-  			extra: arr[15] ? (arr[16] ? arr[16] : 1) : 0
+  			rerole: arr[13] ? (arr[14] ? parseInt(arr[14]) : 1) : 0,
+  			extra: arr[15] ? (arr[16] ? parseInt(arr[16]) : 1) : 0
   		}
   	} else if(arr[17]){ // Operator to run
   		return {
@@ -72,7 +64,7 @@ class RoleObj {
   	} else if(arr[18]){ // Raw Number
   		return {
   			type: "Number",
-  			num: arr[18]
+  			num: parseInt(arr[18])
   		}
   	}
   }
@@ -116,3 +108,5 @@ class RoleObj {
 	")", "gi")					// 0)
   }
 }
+
+export default RoleObj;
