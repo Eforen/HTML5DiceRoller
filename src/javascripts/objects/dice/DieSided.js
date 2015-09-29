@@ -1,6 +1,6 @@
 class DieSided{
-	constructor(){
-		
+	constructor(obj) {
+
 	}
 }
 

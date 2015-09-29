@@ -1,6 +1,6 @@
-class DieFudge
-	constructor(){
-		
+class DieFudge{
+	constructor(obj) {
+
 	}
 }
 

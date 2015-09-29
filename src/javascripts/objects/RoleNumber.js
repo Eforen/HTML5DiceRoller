@@ -1,6 +1,6 @@
 class RoleNumber{
-	constructor(){
-		
+	constructor(obj) {
+
 	}
 }
 

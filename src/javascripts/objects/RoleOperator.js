@@ -1,7 +1,7 @@
 class RoleOperator{
-	constructor(){
-		
+	constructor(obj) {
+
 	}
 }
 
-export default RoleOperator
+export default RoleOperator 
