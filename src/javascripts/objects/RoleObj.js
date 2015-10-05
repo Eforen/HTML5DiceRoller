@@ -14,9 +14,32 @@
 // Final Pattern
 // ((\d+)?(d|D)(\d+)([+-]H\d*)?([+-]L\d*)?(R\d*)?(E\d*)?|[\*/+-]|\d+)
 // With Option /GI
+
+import DieFudge from './dice/DieFudge.js'
+import DieSided from './dice/DieSided.js'
+import RoleOperator from './RoleOperator.js'
+import RoleNumber from './RoleNumber.js'
+
 class RoleObj {
-  constructor() {
+  constructor(Role) {
     
+  }
+
+  static getDie(obj){
+    switch(obj.type){
+      case "Fudge":
+        return new DieFudge(obj)
+        break
+      case "Sided":
+        return new DieSided(obj)
+        break
+      case "Operator":
+        return new RoleOperator(obj)
+        break
+      case "Number":
+        return new RoleNumber(obj)
+        break
+    }
   }
 
   static evalStr(str){
@@ -40,7 +63,7 @@ class RoleObj {
   		}
   	} else if(arr[5]){ // X Sided Role
   		return {
-  			type: "Sides",
+  			type: "Sided",
   			count: arr[4] ? parseInt(arr[4]) : 1,
   			sides: parseInt(arr[6]),
   			highest: {
