@@ -14,15 +14,20 @@ module.exports = function(env) {
     plugins: [],
 
     resolve: {
-      extensions: ['', '.js']
+      extensions: ['', '.js', '.jsx']
     },
 
     module: {
       loaders: [
         {
           test: /\.js$/,
-          loader: 'babel-loader?stage=1',
-          exclude: /node_modules/
+          loader: 'babel-loader',
+          exclude: /(node_modules|bower_components)/
+        },
+        {
+          test: /\.jsx$/,
+          loader: 'babel-loader',
+          exclude: /(node_modules|bower_components)/
         }
       ]
     }
@@ -31,8 +36,7 @@ module.exports = function(env) {
   if(env !== 'test') {
     // Karma doesn't need entry points or output settings
     webpackConfig.entry= {
-      page1: [ './page1.js' ],
-      page2: [ './page2.js' ]
+      app: [ './app.js' ]
     }
 
     webpackConfig.output= {
@@ -52,10 +56,16 @@ module.exports = function(env) {
 
   if(env === 'development') {
     webpackConfig.devtool = 'source-map'
+    webpackConfig.entry= {
+      app: [ './app.js' ]
+    }
     webpack.debug = true
   }
 
   if(env === 'production') {
+    webpackConfig.entry= {
+      app: [ './app.js' ]
+    }
     webpackConfig.plugins.push(
       new webpackManifest(publicPath, 'public'),
       new webpack.DefinePlugin({

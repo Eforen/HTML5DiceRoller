@@ -2,4 +2,8 @@
 //import exclaimify from './exclaimify'
 //const button = document.getElementById('button')
 //var Dispatcher = require('flux').Dispatcher;
-import Dispatcher from 'flux'
+//import Dispatcher from 'flux'
+
+require('./appUI.jsx')
+
+updateGame()
