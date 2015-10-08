@@ -14,13 +14,10 @@ var Colors = require('material-ui/lib/styles/colors');
 
 var menuItems = [
   { route: '/get-started', text: 'Get Started' },
-  { route: '/customization', text: 'Customization' },
-  { type: MenuItem.Types.SUBHEADER, text: 'Testing' },
-  { route: '/about', text: 'About' },
-  { route: '/inbox', text: 'Inbox' },
+  //{ route: '/customization', text: 'Customization' },
   { type: MenuItem.Types.SUBHEADER, text: 'Dice Rolling' },
-  { route: 'nosession', text: 'Just Roll' },
-  { route: 'sessions', text: 'Sessions' },
+  { route: '/private', text: 'Just Roll' },
+  { route: '/sessions', text: 'Sessions' },
   { type: MenuItem.Types.SUBHEADER, text: 'About This Software' },
   {
      type: MenuItem.Types.LINK,
@@ -133,9 +130,20 @@ var appDisplay = React.createClass({
 		<FontIcon className="material-icons" color={Colors.white}>menu</FontIcon>
 	</IconButton>)
 
+	var pageTitle = "Uber DiceRoller"
+	switch(this.props.children.type.name||
+			this.props.children.type.displayName){
+		case "PageGetStarted":
+			pageTitle = "Getting Started"
+			break
+		case "PageNoSession":
+			pageTitle = "Private Session"
+			break
+	}
+
     return (<div>
 		<AppBar
-			title="UberDice"
+			title={pageTitle}
 			onLeftIconButtonTouchTap={this._toggle}
 			//onRightIconButtonTouchTap={this._toggle2}
 			iconElementRight=<IconButton tooltip="System" onTouchTap={this._toggle2}>

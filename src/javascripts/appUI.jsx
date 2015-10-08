@@ -8,6 +8,7 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 var AppDisplay = require('./ui/AppDisplay.jsx');
 var PageGetStarted = require('./ui/PageGetStarted.jsx');
+var PageNoSession = require('./ui/PageNoSession.jsx');
 
 // First we import some components...
 import { Router, Route, Redirect, Link, History } from 'react-router'
@@ -78,23 +79,13 @@ const NoMatch = React.createClass({
 
 
 window.updateGame = function() {
-	var routes = {
-	  path: '/',
-	  component: AppDisplay,
-	  DefaultRoute: 'get-started',
-	  childRoutes: [
-	    { path: 'get-started', component: PageGetStarted },
-	    { path: 'about', component: About },
-	    { path: 'inbox', component: Inbox },
-	    { path: 'messages/:id', component: Message },
-	  ]
-	}
 	//React.render(<Router history={history} routes={routes} />, document.body)
 	React.render(
 		<Router>
 			<Redirect from="/" to="/get-started" />
 			<Route path="/" component={AppDisplay}>
-				<Route path="get-started" component={PageGetStarted}/>
+				<Route path="get-started" name="Getting Started" component={PageGetStarted}/>
+				<Route path="private" name="Private Session" component={PageNoSession}/>
 				<Route path="about" component={About}/>
 				<Route path="inbox" component={Inbox}>
 				<Route path="messages/:id" component={Message}/>

@@ -1,6 +1,6 @@
-const React = require('react');
-const Header = require('./Header.jsx');
-const SubHeader = require('./SubHeader.jsx');
+import React from 'react'
+import Header from './Header.jsx'
+import SubHeader from './SubHeader.jsx'
 
 import { Router, Route, Link } from 'react-router'
 
