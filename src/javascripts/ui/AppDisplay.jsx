@@ -21,6 +21,27 @@ var menuItems = [
   { type: MenuItem.Types.SUBHEADER, text: 'Dice Rolling' },
   { route: 'nosession', text: 'Just Roll' },
   { route: 'sessions', text: 'Sessions' },
+  { type: MenuItem.Types.SUBHEADER, text: 'About This Software' },
+  {
+     type: MenuItem.Types.LINK,
+     payload: 'https://github.com/Eforen/HTML5DiceRoller',
+     text: 'Source Code'
+  },
+  {
+     type: MenuItem.Types.LINK,
+     payload: 'https://www.ubersoftech.com',
+     text: 'Developer Site',
+     disabled: false
+  },
+  {
+     type: MenuItem.Types.LINK,
+     payload: 'http://eforen.tv',
+     text: "Eforen's Website",
+     disabled: false
+  },
+]
+
+var menuItems2 = [
   { type: MenuItem.Types.SUBHEADER, text: 'Settings' },
   { route: 'login', text: 'Login' },
   { type: MenuItem.Types.SUBHEADER, text: 'About This Software' },
@@ -45,29 +66,6 @@ var menuItems = [
 
 
 var appDisplay = React.createClass({
-  //mixins: [Navigation],
-  //mixins: [ History ],
- 
-/*
-  constructor() {
-    //super();
- 
-    this._handleClick = this._handleClick.bind(this);
-    this._getSelectedIndex = this._getSelectedIndex.bind(this);
-    this._onLeftNavChange = this._onLeftNavChange.bind(this);
-  },
- 
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-
-    contextTypes: {
-        router: React.PropTypes.func.isRequired
-    },
-  mixins: [ History ],
-  */
  
   _handleClick(e) {
     e.preventDefault();
@@ -90,7 +88,7 @@ var appDisplay = React.createClass({
   _onLeftNavChange(e, key, payload) {
     // Do DOM Diff refresh
     console.log("WTF")
-    this.refs.leftNav.toggle();
+    //this.refs.leftNav.toggle();
     //this.props.history.transitionTo(payload.route);
     this.props.history.pushState(null, payload.route, payload.route);
     //this.transitionTo(payload.route);
@@ -101,10 +99,16 @@ var appDisplay = React.createClass({
   {
     alert('ok');
   },
+
   _toggle(e){
     e.preventDefault()
     this.refs.leftNav.toggle()
   },
+  _toggle2(e){
+    e.preventDefault()
+    this.refs.rightNav.toggle()
+  },
+
   render() {
 
   	var iconButtonElement = (
@@ -120,13 +124,6 @@ var appDisplay = React.createClass({
 		<MenuItem primaryText="Sign out" />
 	</IconMenu>)
 
-	var nav = (<LeftNav ref="leftNav"
-		menuItems={menuItems}
-		docked={false}
-		disableSwipeToOpen={false}
-		selectedIndex={this._getSelectedIndex()}
-		onChange={this._onLeftNavChange}/>)
-
 	var navFunc = function(){
 		this.refs.leftNav.toggle()
 	}
@@ -139,10 +136,31 @@ var appDisplay = React.createClass({
     return (<div>
 		<AppBar
 			title="UberDice"
-			onLeftIconButtonTouchTap={this._toggle}>
+			onLeftIconButtonTouchTap={this._toggle}
+			//onRightIconButtonTouchTap={this._toggle2}
+			iconElementRight=<IconButton tooltip="System" onTouchTap={this._toggle2}>
+					  			<FontIcon className="material-icons" color={Colors.white}>more_vert</FontIcon>
+					  		</IconButton>
+			>
 		</AppBar>
-		{nav}
+
+		<LeftNav ref="leftNav"
+		menuItems={menuItems}
+		docked={false}
+		disableSwipeToOpen={false}
+		selectedIndex={this._getSelectedIndex()}
+		onChange={this._onLeftNavChange}/>
+
+		<LeftNav ref="rightNav"
+		menuItems={menuItems2}
+		docked={false}
+		openRight={true}
+		disableSwipeToOpen={false}
+		selectedIndex={this._getSelectedIndex()}
+		onChange={this._onLeftNavChange}/>
+
 		{this.props.children}
+
 		</div>)
   },
 });
