@@ -7,9 +7,17 @@ var injectTapEventPlugin = require("react-tap-event-plugin");
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 var AppDisplay = require('./ui/AppDisplay.jsx');
+var PageGetStarted = require('./ui/PageGetStarted.jsx');
 
 // First we import some components...
-import { Router, Route, Link } from 'react-router'
+import { Router, Route, Redirect, Link, History } from 'react-router'
+import { createHistory, useBasename } from 'history'
+
+//const history = createHistory()
+/*
+const history = useBasename(createHistory)({
+  basename: '/#'
+})*/
 
 // Then we delete a bunch of code from App and
 // add some <Link> elements...
@@ -61,17 +69,38 @@ const Inbox = React.createClass({
 })
 
 
+// Make a new component to render inside of Inbox
+const NoMatch = React.createClass({
+  render() {
+    return <h3>Message 404 Location not found!</h3>
+  }
+})
+
+
 window.updateGame = function() {
 	var routes = {
 	  path: '/',
 	  component: AppDisplay,
+	  DefaultRoute: 'get-started',
 	  childRoutes: [
+	    { path: 'get-started', component: PageGetStarted },
 	    { path: 'about', component: About },
 	    { path: 'inbox', component: Inbox },
 	    { path: 'messages/:id', component: Message },
 	  ]
 	}
-
-	React.render(<Router routes={routes} />, document.body)
+	//React.render(<Router history={history} routes={routes} />, document.body)
+	React.render(
+		<Router>
+			<Redirect from="/" to="/get-started" />
+			<Route path="/" component={AppDisplay}>
+				<Route path="get-started" component={PageGetStarted}/>
+				<Route path="about" component={About}/>
+				<Route path="inbox" component={Inbox}>
+				<Route path="messages/:id" component={Message}/>
+				</Route>
+				<Route path="*" component={NoMatch}/>
+			</Route>
+		</Router>, document.body)
 	//React.render(<AppDisplay />, document.body);
 }

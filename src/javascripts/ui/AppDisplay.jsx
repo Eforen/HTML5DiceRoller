@@ -1,5 +1,5 @@
 const React = require('react');
-import { Router, Route, Link } from 'react-router'
+import { Router, Route, Link, History } from 'react-router'
 
 var AppBar = require('material-ui/lib/app-bar');
 var LeftNav = require('material-ui/lib/left-nav');
@@ -13,19 +13,11 @@ var Colors = require('material-ui/lib/styles/colors');
 
 
 var menuItems = [
-  { route: 'get-started', text: 'Get Started' },
-  { route: 'customization', text: 'Customization' },
+  { route: '/get-started', text: 'Get Started' },
+  { route: '/customization', text: 'Customization' },
   { type: MenuItem.Types.SUBHEADER, text: 'Testing' },
-  {
-     type: MenuItem.Types.LINK,
-     payload: '#/about',
-     text: 'About'
-  },
-  {
-     type: MenuItem.Types.LINK,
-     payload: '#/inbox',
-     text: 'Inbox'
-  },
+  { route: '/about', text: 'About' },
+  { route: '/inbox', text: 'Inbox' },
   { type: MenuItem.Types.SUBHEADER, text: 'Dice Rolling' },
   { route: 'nosession', text: 'Just Roll' },
   { route: 'sessions', text: 'Sessions' },
@@ -53,6 +45,8 @@ var menuItems = [
 
 
 var appDisplay = React.createClass({
+  //mixins: [Navigation],
+  //mixins: [ History ],
  
 /*
   constructor() {
@@ -68,6 +62,11 @@ var appDisplay = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
+
+    contextTypes: {
+        router: React.PropTypes.func.isRequired
+    },
+  mixins: [ History ],
   */
  
   _handleClick(e) {
@@ -90,8 +89,12 @@ var appDisplay = React.createClass({
  
   _onLeftNavChange(e, key, payload) {
     // Do DOM Diff refresh
+    console.log("WTF")
     this.refs.leftNav.toggle();
-    this.context.route.transitionTo(payload.route);
+    //this.props.history.transitionTo(payload.route);
+    this.props.history.pushState(null, payload.route, payload.route);
+    //this.transitionTo(payload.route);
+    //this.history.transitionTo(payload.route);
   },
 
   menuClick: function()
