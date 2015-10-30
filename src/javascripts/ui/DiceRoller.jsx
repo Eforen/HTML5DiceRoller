@@ -1,5 +1,7 @@
 import React from 'react'
-import FloatingActionButton from 'material-ui/lib/floating-action-button';
+//import FloatingActionButton from 'material-ui/lib/floating-action-button';
+
+import { FloatingActionButton, Toggle} from 'material-ui';
 import { Button , ButtonGroup, Input, Glyphicon} from 'react-bootstrap';
 
 //import { Router, Route, Link } from 'react-router'
@@ -48,43 +50,51 @@ export default class DiceRoller extends React.Component {
   	return false
   }
 
+  customMode(event, toggled){
+    this.setState({"customMode": toggled})
+  }
+
+  renderCustomMode(){
+    if (this.state.customMode !== true){
+      var btnCountDec = <Button><Glyphicon glyph="minus" /></Button>
+      var btnCountInc = <Button><Glyphicon glyph="plus" /></Button>
+
+      return <div className="customModeWrapper">
+        <Input bsSize="large" className="DiceCountSelect" type="number" min={1} buttonBefore={btnCountDec} buttonAfter={btnCountInc} />
+        <ButtonGroup justified={true} className="DiceSideSelect">
+            {this.state.btns.map(function(btn, i) {
+              var boundClick = this.btnClicked.bind(this, i);
+              return (
+                <Button bsSize="large" key={i} componentClass="DiceSideBtn" active={this.checkState(this, i)} onClick={boundClick} >{btn}</Button>
+              );
+            }, this)}
+        </ButtonGroup>
+        <ButtonGroup justified={true} className="DiceFeatureSelect1">
+            {["Reroll Ones", "Extra Dice"].map(function(feature, i) {
+              var boundClick = this.featureToggle.bind(this, feature);
+              return (
+                <Button bsSize="large" key={"features1-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
+              );
+            }, this)}
+        </ButtonGroup>
+        <ButtonGroup justified={true} className="DiceFeatureSelect2">
+            {["Drop Low", "Add Low", "Drop High", "Add High"].map(function(feature, i) {
+              var boundClick = this.featureToggle.bind(this, feature);
+              return (
+                <Button bsSize="large" key={"features2-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
+              );
+            }, this)}
+        </ButtonGroup>
+      </div>
+    }
+    return false
+  }
+
   render () {
-  	var style={
-  		color: "#8200D4",
-  		fontWeight: "bold"
-  	}
-
-  	var btnCountDec = <Button><Glyphicon glyph="minus" /></Button>
-  	var btnCountInc = <Button><Glyphicon glyph="plus" /></Button>
-
   	var current = (
   		<div className="DiceRoller">
-<Glyphicon glyph="glyphicons-minus" /> <Glyphicon glyph="glyphicons-plus" />
-    		<Input bsSize="large" className="DiceCountSelect" type="number" min={1} buttonBefore={btnCountDec} buttonAfter={btnCountInc} />
-	  		<ButtonGroup justified={true} className="DiceSideSelect">
-		        {this.state.btns.map(function(btn, i) {
-		          var boundClick = this.btnClicked.bind(this, i);
-		          return (
-		          	<Button bsSize="large" key={i} componentClass="DiceSideBtn" active={this.checkState(this, i)} onClick={boundClick} >{btn}</Button>
-		          );
-		        }, this)}
-	  		</ButtonGroup>
-	  		<ButtonGroup justified={true} className="DiceFeatureSelect1">
-		        {["Reroll Ones", "Extra Dice"].map(function(feature, i) {
-		          var boundClick = this.featureToggle.bind(this, feature);
-		          return (
-		          	<Button bsSize="large" key={"features1-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
-		          );
-		        }, this)}
-	  		</ButtonGroup>
-	  		<ButtonGroup justified={true} className="DiceFeatureSelect2">
-		        {["Drop Low", "Add Low", "Drop High", "Add High"].map(function(feature, i) {
-		          var boundClick = this.featureToggle.bind(this, feature);
-		          return (
-		          	<Button bsSize="large" key={"features2-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
-		          );
-		        }, this)}
-	  		</ButtonGroup>
+      <Toggle name="customRoll" label="Custom Roll Formula" onToggle={this.customMode.bind(this)}/>
+      {this.renderCustomMode()}
   		</div>)
 
     return current
