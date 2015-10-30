@@ -1,0 +1,36 @@
+.DiceSideSelect, .DiceFeatureSelect1, .DiceFeatureSelect2 {
+	margin-top: 1em;
+	display: table;
+	width: 100%;
+	.active{
+		background-color: #000;
+		color: $paper;
+	}
+	dicesidebtn {
+		font-weight: bold;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+	    margin: 0.5em;
+	    border: {
+	    	color: #000;
+	    	style: solid;
+	    	width: 0.2em;
+	    	right: none;
+	    }
+	    display: table-cell;
+	    text-align: center;
+		&:first-child {
+			border-bottom-left-radius: 0.5em;
+			border-top-left-radius: 0.5em;
+		}
+		&:last-child {
+			border-right: {
+		    	color: #000;
+		    	style: solid;
+		    	width: 0.2em;
+			}
+			border-bottom-right-radius: 0.5em;
+			border-top-right-radius: 0.5em;
+		}
+	}
+}
