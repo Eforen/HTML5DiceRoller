@@ -22,7 +22,10 @@
     "fbjs": "^0.2.1",
     "flux": "^2.1.1",
     "history": "^1.12.3",
-    "react-bootstrap": "^0.27.3"
+    "react": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.1",
+    "react-bootstrap": "^0.27.3",
+    "material-ui": "0.12.4"
   },
   "devDependencies": {
     "babel-core": "^5.8.3",
