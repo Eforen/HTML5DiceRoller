@@ -54,14 +54,14 @@ export default class DiceRoller extends React.Component {
   		fontWeight: "bold"
   	}
 
-  	var btnCountDec = <Button><Glyphicon glyph="glyphicons-minus" /></Button>
-  	var btnCountInc = <Button><Glyphicon glyph="glyphicons-plus" /></Button>
+  	var btnCountDec = <Button><Glyphicon glyph="minus" /></Button>
+  	var btnCountInc = <Button><Glyphicon glyph="plus" /></Button>
 
   	var current = (
   		<div className="DiceRoller">
 <Glyphicon glyph="glyphicons-minus" /> <Glyphicon glyph="glyphicons-plus" />
-    		<Input className="DiceCountSelect" type="number" min={1} buttonBefore={btnCountDec} buttonAfter={btnCountInc} />
-	  		<ButtonGroup className="DiceSideSelect">
+    		<Input bsSize="large" className="DiceCountSelect" type="number" min={1} buttonBefore={btnCountDec} buttonAfter={btnCountInc} />
+	  		<ButtonGroup justified={true} className="DiceSideSelect">
 		        {this.state.btns.map(function(btn, i) {
 		          var boundClick = this.btnClicked.bind(this, i);
 		          return (
@@ -69,7 +69,7 @@ export default class DiceRoller extends React.Component {
 		          );
 		        }, this)}
 	  		</ButtonGroup>
-	  		<ButtonGroup className="DiceFeatureSelect1">
+	  		<ButtonGroup justified={true} className="DiceFeatureSelect1">
 		        {["Reroll Ones", "Extra Dice"].map(function(feature, i) {
 		          var boundClick = this.featureToggle.bind(this, feature);
 		          return (
@@ -77,7 +77,7 @@ export default class DiceRoller extends React.Component {
 		          );
 		        }, this)}
 	  		</ButtonGroup>
-	  		<ButtonGroup className="DiceFeatureSelect2">
+	  		<ButtonGroup justified={true} className="DiceFeatureSelect2">
 		        {["Drop Low", "Add Low", "Drop High", "Add High"].map(function(feature, i) {
 		          var boundClick = this.featureToggle.bind(this, feature);
 		          return (
