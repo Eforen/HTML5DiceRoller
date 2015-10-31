@@ -34,12 +34,16 @@ export default class DiceRoller extends React.Component {
 	  	switch(feature){
 	  		case "Drop Low":
 	  			this.state.feature["Add Low"] = false
+          break
 	  		case "Add Low":
 	  			this.state.feature["Drop Low"] = false
+          break
 	  		case "Drop High":
 	  			this.state.feature["Add High"] = false
+          break
 	  		case "Add High":
 	  			this.state.feature["Drop High"] = false
+          break
 	  	}
 	  	this.state.feature[feature] = true
   	}
