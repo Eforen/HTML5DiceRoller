@@ -1,4 +1,5 @@
 const React = require('react');
+const ReactDOM = require('react-dom');
 var injectTapEventPlugin = require("react-tap-event-plugin");
 
 //Needed for onTouchTap
@@ -80,7 +81,8 @@ const NoMatch = React.createClass({
 
 window.updateGame = function() {
 	//React.render(<Router history={history} routes={routes} />, document.body)
-	React.render(
+	//React.render(
+  ReactDOM.render(
 		<Router>
 			<Redirect from="/" to="/get-started" />
 			<Route path="/" component={AppDisplay}>
@@ -92,6 +94,6 @@ window.updateGame = function() {
 				</Route>
 				<Route path="*" component={NoMatch}/>
 			</Route>
-		</Router>, document.body)
+		</Router>, document.getElementById("aplicationpagewrapper"))
 	//React.render(<AppDisplay />, document.body);
 }

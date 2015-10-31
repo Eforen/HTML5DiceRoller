@@ -9,6 +9,8 @@ export default class PageNoSession extends React.Component {
     return <div>
       <Header>Private Session</Header>
       <DiceRoller rollHandler={this.handleRole.bind(this)}/>
+      <Header>Session History</Header>
+      <p>No rolls in log</p>
     </div>
   }
 

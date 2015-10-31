@@ -19,8 +19,22 @@ export default class DiceRoller extends React.Component {
     }
   }
 
+  compileCode(){
+    if(this.state.dieCount === 1) this.state.code = this.state.btns[this.state.dieBtn]
+    else this.state.code = this.state.dieCount+this.state.btns[this.state.dieBtn]
+
+    if(this.state.feature["Add Low"] == true) this.state.code += "+L"
+    if(this.state.feature["Drop Low"] == true) this.state.code += "-L"
+    if(this.state.feature["Add High"] == true) this.state.code += "+H"
+    if(this.state.feature["Drop High"] == true) this.state.code += "-H"
+    if(this.state.feature["Extra Dice"] == true) this.state.code += "E"
+    if(this.state.feature["Reroll Ones"] == true) this.state.code += "R"
+    this.setState({"code":this.state.code})
+  }
+
   btnClicked(index){
-  	this.setState({"dieBtn":index})
+  	this.state.dieBtn = index
+    this.compileCode()
   	//alert(this.state.dieBtn+"|"+index)
   }
 
@@ -47,7 +61,8 @@ export default class DiceRoller extends React.Component {
 	  	}
 	  	this.state.feature[feature] = true
   	}
-  	this.setState({"feature":this.state.feature})
+  	//this.setState({"feature":this.state.feature})
+    this.compileCode()
   }
 
   checkFeature(self, feature){
@@ -57,19 +72,25 @@ export default class DiceRoller extends React.Component {
 
   customMode(event, toggled){
     this.setState({"customMode": toggled})
+    this.compileCode()
   }
 
   changeDiceCount(up, count){
     if(up.target && up.target.value){
-      this.setState({"dieCount": parseInt(up.target.value)})
+      this.state.dieCount = parseInt(up.target.value)
     } else{
       if(up){
-        this.setState({"dieCount": count ? this.state.dieCount + count : this.state.dieCount + 1})
+        this.state.dieCount = count ? this.state.dieCount + count : this.state.dieCount + 1
       } else{
         if((count ? this.state.dieCount - count : this.state.dieCount - 1) > 0)
-          this.setState({"dieCount": count ? this.state.dieCount - count : this.state.dieCount - 1})
+          this.state.dieCount = count ? this.state.dieCount - count : this.state.dieCount - 1
       }
     }
+    this.compileCode()
+  }
+
+  roll(){
+    alert("Rolling")
   }
 
   renderCustomMode(){
@@ -109,12 +130,13 @@ export default class DiceRoller extends React.Component {
   }
 
   render () {
-  	var current = (
-  		<div className="DiceRoller">
-      <Toggle name="customRoll" label="Custom Roll Formula" onToggle={this.customMode.bind(this)}/>
-      {this.renderCustomMode()}
-  		</div>)
-
-    return current
+    var rollBtn = <Button justified={true} onClick={this.roll.bind(this)} >Roll</Button>
+    
+    return <div className="DiceRoller">
+        <Input type="text" roller={this} disabled={this.state.customMode !== true} value={this.state.code} buttonAfter={rollBtn}/>
+        <Toggle name="customRoll" label="Custom Roll Formula" onToggle={this.customMode.bind(this)}/>
+        {this.renderCustomMode()}
+        
+      </div>
   }
 }

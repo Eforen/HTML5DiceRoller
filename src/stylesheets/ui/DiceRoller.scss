@@ -1,10 +1,14 @@
 
-.customModeWrapper{
+.DiceRoller{
 	.btn-group {
 		margin-top: 1em;
-		.DiceCountSelect{
-			text-align: center;
-		}
+	}
+	.DiceCountSelect{
+		text-align: center;
+	}
+	.rollBtn{
+		margin-top: 1em;
+		width: 100%;
 	}
 }
 /*
