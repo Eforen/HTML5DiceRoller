@@ -12,8 +12,9 @@ export default class DiceRoller extends React.Component {
     //this.state = { n: 0 }
     this.state = {
     	code: "d6",
-    	dieBtn: 2,
-    	btns: ["d2", "d4", "d6", "d8", "d10", "d12", "d20", "d100"],
+      dieCount: 1,
+    	dieBtn: 1,
+    	btns: ["d4", "d6", "d8", "d10", "d12", "d20", "d100"],
     	feature: {}
     }
   }
@@ -54,18 +55,31 @@ export default class DiceRoller extends React.Component {
     this.setState({"customMode": toggled})
   }
 
+  changeDiceCount(up, count){
+    if(up.target && up.target.value){
+      this.setState({"dieCount": parseInt(up.target.value)})
+    } else{
+      if(up){
+        this.setState({"dieCount": count ? this.state.dieCount + count : this.state.dieCount + 1})
+      } else{
+        if((count ? this.state.dieCount - count : this.state.dieCount - 1) > 0)
+          this.setState({"dieCount": count ? this.state.dieCount - count : this.state.dieCount - 1})
+      }
+    }
+  }
+
   renderCustomMode(){
     if (this.state.customMode !== true){
-      var btnCountDec = <Button><Glyphicon glyph="minus" /></Button>
-      var btnCountInc = <Button><Glyphicon glyph="plus" /></Button>
+      var btnCountDec = <Button onClick={this.changeDiceCount.bind(this,false,1)}><Glyphicon glyph="minus" /></Button>
+      var btnCountInc = <Button onClick={this.changeDiceCount.bind(this,true,1)}><Glyphicon glyph="plus" /></Button>
 
       return <div className="customModeWrapper">
-        <Input bsSize="large" className="DiceCountSelect" type="number" min={1} buttonBefore={btnCountDec} buttonAfter={btnCountInc} />
+        <Input bsSize="large" className="DiceCountSelect" type="number" roller={this} min={1} value={this.state.dieCount} buttonBefore={btnCountDec} buttonAfter={btnCountInc} onChange={this.changeDiceCount.bind(this)} />
         <ButtonGroup justified={true} className="DiceSideSelect">
             {this.state.btns.map(function(btn, i) {
               var boundClick = this.btnClicked.bind(this, i);
               return (
-                <Button bsSize="large" key={i} componentClass="DiceSideBtn" active={this.checkState(this, i)} onClick={boundClick} >{btn}</Button>
+                <Button key={i} componentClass="DiceSideBtn" active={this.checkState(this, i)} onClick={boundClick} >{btn}</Button>
               );
             }, this)}
         </ButtonGroup>
@@ -73,7 +87,7 @@ export default class DiceRoller extends React.Component {
             {["Reroll Ones", "Extra Dice"].map(function(feature, i) {
               var boundClick = this.featureToggle.bind(this, feature);
               return (
-                <Button bsSize="large" key={"features1-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
+                <Button key={"features1-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
               );
             }, this)}
         </ButtonGroup>
@@ -81,7 +95,7 @@ export default class DiceRoller extends React.Component {
             {["Drop Low", "Add Low", "Drop High", "Add High"].map(function(feature, i) {
               var boundClick = this.featureToggle.bind(this, feature);
               return (
-                <Button bsSize="large" key={"features2-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
+                <Button key={"features2-"+i} componentClass="DiceSideBtn" active={this.checkFeature(this, feature)} onClick={boundClick} >{feature}</Button>
               );
             }, this)}
         </ButtonGroup>
