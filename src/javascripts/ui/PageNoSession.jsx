@@ -2,24 +2,21 @@ import React from 'react'
 import Header from './Header.jsx'
 import SubHeader from './SubHeader.jsx'
 import DiceRoller from './DiceRoller.jsx'
+import SessionHistory from './SessionHistory.jsx'
 //import { Router, Route, Link } from 'react-router'
+
+import * as RollActions from "../data/actions/RollActions.js";
 
 export default class PageNoSession extends React.Component {
   render () {
     return <div>
       <Header>Private Session</Header>
-      <DiceRoller rollHandler={this.handleRole.bind(this)}/>
-      <Header>Session History</Header>
-      <p>No rolls in log</p>
+      <DiceRoller onRole={this.roll.bind(this)}/>
+      <SessionHistory/>
     </div>
   }
 
-  handleRole(role){
-    alert(role)
-  }
-
-  handleClick () {
-    //<button onClick={this.handleClick.bind(this)}>click me!</button>
-    //this.setState({ n: this.state.n + 1 })
+  roll(roleCode){
+    RollActions.createRole(roleCode);
   }
 }

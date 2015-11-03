@@ -1,8 +1,6 @@
 import React from 'react'
 //import FloatingActionButton from 'material-ui/lib/floating-action-button';
 
-import * as RollActions from "../data/actions/RollActions.js";
-
 import { FloatingActionButton, Toggle} from 'material-ui';
 import { Button , ButtonGroup, Input, Glyphicon} from 'react-bootstrap';
 
@@ -91,8 +89,48 @@ export default class DiceRoller extends React.Component {
     this.compileCode()
   }
 
-  roll(){
-    RollActions.createRole(this.state.code);
+  isValidSymbol(s){
+    switch(s.toUpperCase()){
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case 'D':
+      case 'L':
+      case '-':
+      case '+':
+      case 'H':
+      case 'R':
+      case 'E':
+        return true
+    }
+    return false
+  }
+  changeRoleFormula(change){
+    //validate
+    var chars = change.target.value.split('')
+
+    var value = ""
+
+    var currentChar = ""
+
+    while(chars.length > 0){
+      currentChar = chars.pop()
+      if(this.isValidSymbol(currentChar)){
+        //alert("validated "+change.target.value)
+        value = currentChar + value
+      }// else{
+        //alert("not validated "+change.target.value)
+      //}
+    }
+
+    this.setState({"code": value})
   }
 
   renderCustomMode(){
@@ -132,10 +170,10 @@ export default class DiceRoller extends React.Component {
   }
 
   render () {
-    var rollBtn = <Button justified={true} onClick={this.roll.bind(this)} >Roll</Button>
+    var rollBtn = <Button justified={true} onClick={this.props.onRole.bind(null,this.state.code)} >Roll</Button>
     
     return <div className="DiceRoller">
-        <Input type="text" roller={this} disabled={this.state.customMode !== true} value={this.state.code} buttonAfter={rollBtn}/>
+        <Input type="text" roller={this} disabled={this.state.customMode !== true} onChange={this.changeRoleFormula.bind(this)} value={this.state.code} buttonAfter={rollBtn}/>
         <Toggle name="customRoll" label="Custom Roll Formula" onToggle={this.customMode.bind(this)}/>
         {this.renderCustomMode()}
         
