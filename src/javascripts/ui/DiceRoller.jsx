@@ -49,7 +49,6 @@ export default class DiceRoller extends React.Component {
   	else {
 	  	switch(feature){
 	  		case "Drop Low":
-          RollActions.createRole("Test");
 	  			this.state.feature["Add Low"] = false
           break
 	  		case "Add Low":
@@ -93,7 +92,7 @@ export default class DiceRoller extends React.Component {
   }
 
   roll(){
-    alert("Rolling")
+    RollActions.createRole(this.state.code);
   }
 
   renderCustomMode(){
