@@ -1,4 +1,4 @@
-import {Dispatcher} from 'flux';
+var Dispatcher = require('flux/lib/Dispatcher');
 
 //let singleton = Symbol();
 let singletonEnforcer = Symbol();
@@ -15,8 +15,8 @@ class AppDispatcher extends Dispatcher {
 	* as a view action.
 	* @param  {object} action The data coming from the view.
 	*/
-	static handleViewAction(action) {
-		singleton.dispatch({
+	handleViewAction(action) {
+		this.dispatch({
 			source: 'VIEW_ACTION',
 			action: action
 		});
@@ -27,8 +27,8 @@ class AppDispatcher extends Dispatcher {
 	* as a server action.
 	* @param  {object} action The data coming from the view.
 	*/
-	static handleServerAction(action) {
-		singleton.dispatch({
+	handleServerAction(action) {
+		this.dispatch({
 			source: 'SERVER_ACTION',
 			action: action
 		});
@@ -37,4 +37,4 @@ class AppDispatcher extends Dispatcher {
 
 let singleton = new AppDispatcher(singletonEnforcer);
 
-export default AppDispatcher;
+export default singleton;

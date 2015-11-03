@@ -9,6 +9,6 @@ require('./appUI.jsx')
 import AppDispatcher from "./data/dispatcher/AppDispatcher";
 import RollStore from "./data/stores/RollStore";
 
-var temp = new RollStore(AppDispatcher);
+//var temp = new RollStore(AppDispatcher);
 
 updateGame()

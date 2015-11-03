@@ -1,7 +1,7 @@
 import AppDispatcher from "../dispatcher/AppDispatcher";
-import {MsgConstants} from "../constants/MsgConstants";
+import * as MsgConstants from "../constants/MsgConstants";
 import RollStore from "../stores/RollStore";
-import SessionStore from "../stores/SessionStore";
+//import SessionStore from "../stores/SessionStore";
 
 export function createRole(roleobj) {
 	AppDispatcher.handleViewAction({
