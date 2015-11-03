@@ -1,6 +1,8 @@
 import React from 'react'
 //import FloatingActionButton from 'material-ui/lib/floating-action-button';
 
+import * as RollActions from "../data/actions/RollActions.js";
+
 import { FloatingActionButton, Toggle} from 'material-ui';
 import { Button , ButtonGroup, Input, Glyphicon} from 'react-bootstrap';
 
@@ -47,6 +49,7 @@ export default class DiceRoller extends React.Component {
   	else {
 	  	switch(feature){
 	  		case "Drop Low":
+          RollActions.createRole("Test");
 	  			this.state.feature["Add Low"] = false
           break
 	  		case "Add Low":

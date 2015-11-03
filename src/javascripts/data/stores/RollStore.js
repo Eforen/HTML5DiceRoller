@@ -1,11 +1,21 @@
-import {Store} from 'flux/utils';
- 
+import Store from 'flux/utils.js';
+import AppDispatcher from "../dispatcher/AppDispatcher";
+
+alert(Store);
+alert("again");
+
 class RollStore extends Store {
-  getInitialState(): number {
-    return 0;
-  }
+	constructor(dispatcher) {
+		super(dispatcher);
+	}
 
-  __onDispatch(payload: Object): void{
+	getInitialState(): number {
+		return 0;
+	}
 
-  }
+	__onDispatch(payload: Object): void{
+		alert("Role msg");
+	}
 }
+
+module.exports = new RollStore(AppDispatcher);
