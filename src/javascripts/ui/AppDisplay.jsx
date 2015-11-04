@@ -1,18 +1,27 @@
 const React = require('react');
 import { Router, Route, Link, History } from 'react-router'
 
-var AppBar = require('material-ui/lib/app-bar');
-var LeftNav = require('material-ui/lib/left-nav');
-var MenuItem = require('material-ui/lib/menu/menu-item');
-var IconMenu = require('material-ui/lib/menus/icon-menu');
-var IconButton = require('material-ui/lib/icon-button');
-var FontIcon = require('material-ui/lib/font-icon');
-var Colors = require('material-ui/lib/styles/colors');
+//const AppBar = require('material-ui/lib/app-bar');
+//const LeftNav = require('material-ui/lib/left-nav');
+//const MenuItem = require('material-ui/lib/menu/menu-item');
+//const IconMenu = require('material-ui/lib/menus/icon-menu');
+//const IconButton = require('material-ui/lib/icon-button');
+//const FontIcon = require('material-ui/lib/font-icon');
+//const Colors = require('material-ui/lib/styles/colors');
 
+//import {AppBar, LeftNav, MenuItem, IconMenu, IconButton, FontIcon, Colors} from 'material-ui/lib'
 //const RaisedButton = require('material-ui/lib/raised-button');
 
+import AppBar from 'material-ui/lib/app-bar'
+import LeftNav from 'material-ui/lib/left-nav'
+import MenuItem from 'material-ui/lib/menu/menu-item'
+import IconMenu from 'material-ui/lib/menus/icon-menu'
+import IconButton from 'material-ui/lib/icon-button'
+import FontIcon from 'material-ui/lib/font-icon'
+import Colors from 'material-ui/lib/styles/colors'
 
-var menuItems = [
+
+const menuItems = [
   { route: '/get-started', text: 'Get Started' },
   //{ route: '/customization', text: 'Customization' },
   { type: MenuItem.Types.SUBHEADER, text: 'Dice Rolling' },
@@ -38,7 +47,7 @@ var menuItems = [
   },
 ]
 
-var menuItems2 = [
+const menuItems2 = [
   { type: MenuItem.Types.SUBHEADER, text: 'Settings' },
   { route: 'login', text: 'Login' },
   { type: MenuItem.Types.SUBHEADER, text: 'About This Software' },
@@ -62,13 +71,13 @@ var menuItems2 = [
 ]
 
 
-var appDisplay = React.createClass({
+export default class appDisplay extends React.Component {
  
   _handleClick(e) {
     e.preventDefault();
  
     this.refs.leftNav.toggle();
-  },
+  }
  
   // Get the selected item in LeftMenu
   _getSelectedIndex() {
@@ -80,7 +89,7 @@ var appDisplay = React.createClass({
         return i;
       }
     }
-  },
+  }
  
   _onLeftNavChange(e, key, payload) {
     // Do DOM Diff refresh
@@ -90,21 +99,21 @@ var appDisplay = React.createClass({
     this.props.history.pushState(null, payload.route, payload.route);
     //this.transitionTo(payload.route);
     //this.history.transitionTo(payload.route);
-  },
+  }
 
-  menuClick: function()
+  menuClick()
   {
     alert('ok');
-  },
+  }
 
   _toggle(e){
     e.preventDefault()
     this.refs.leftNav.toggle()
-  },
+  }
   _toggle2(e){
     e.preventDefault()
     this.refs.rightNav.toggle()
-  },
+  }
 
   render() {
 
@@ -170,7 +179,5 @@ var appDisplay = React.createClass({
 		{this.props.children}
 
 		</div>)
-  },
-});
- 
-module.exports = appDisplay;
+  }
+}

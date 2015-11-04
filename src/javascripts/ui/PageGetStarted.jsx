@@ -4,11 +4,10 @@ import SubHeader from './SubHeader.jsx'
 
 import { Router, Route, Link } from 'react-router'
 
-var rolls = 8743219;
-var users = Math.floor((Math.random() * 100) + 1568);
+const rolls = 8743219; //Mock until there is real code for this
+const users = Math.floor((Math.random() * 100) + 1568); //Mock until there is real code for this
 
-var PageGetStarted = React.createClass({
-	 	
+export default class PageGetStarted extends React.Component {
   render() {
     return (<div>
 		<Header>Getting Started</Header>
@@ -32,7 +31,5 @@ var PageGetStarted = React.createClass({
 		<div>Number of dice rolled: <span>{rolls}</span></div>
 		</p>
 		</div>)
-  },
-});
- 
-module.exports = PageGetStarted;
+  }
+}
