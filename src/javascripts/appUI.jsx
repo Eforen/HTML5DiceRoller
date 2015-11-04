@@ -1,15 +1,15 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-var injectTapEventPlugin = require("react-tap-event-plugin");
+const injectTapEventPlugin = require("react-tap-event-plugin");
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release
 //Check this repo:
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
-var AppDisplay = require('./ui/AppDisplay.jsx');
-var PageGetStarted = require('./ui/PageGetStarted.jsx');
-var PageNoSession = require('./ui/PageNoSession.jsx');
+const AppDisplay = require('./ui/AppDisplay.jsx');
+const PageGetStarted = require('./ui/PageGetStarted.jsx');
+const PageNoSession = require('./ui/PageNoSession.jsx');
 
 // First we import some components...
 import { Router, Route, Redirect, Link, History } from 'react-router'
@@ -72,11 +72,11 @@ const Inbox = React.createClass({
 
 
 // Make a new component to render inside of Inbox
-const NoMatch = React.createClass({
+class NoMatch extends React.Component{
   render() {
     return <h3>Message 404 Location not found!</h3>
   }
-})
+}
 
 
 window.updateGame = function() {

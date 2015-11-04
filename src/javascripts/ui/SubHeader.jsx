@@ -2,11 +2,9 @@ const React = require('react');
 
 import { Router, Route, Link } from 'react-router'
 
-var SubHeader = React.createClass({
+export default class SubHeader extends React.Component{
  
-  render() {
+  render(){
     return (<div className="SubHeader">{this.props.children}</div>)
-  },
-});
- 
-module.exports = SubHeader;
+  }
+}
