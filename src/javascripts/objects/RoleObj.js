@@ -46,13 +46,13 @@ class RoleObj {
   	var re = RoleObj.getPattern()
   	var output = []
   	var m
-	while ((m = re.exec(str)) !== null) {
+  	while ((m = re.exec(str)) !== null) {
 	    if (m.index === re.lastIndex) {
 	        re.lastIndex++;
 	    }
 	    output.push(this._eval(m))
-	}
-	return output
+  	}
+  	return output
   }
 
   static _eval(arr){
